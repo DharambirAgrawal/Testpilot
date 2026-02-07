@@ -1,0 +1,6 @@
+# .github/copilot-extensions.yml
+# Register this as a Copilot Extension
+
+name: autotest
+description: "Autonomous frontend testing - navigates, clicks, fills forms, finds bugs"
+url: "http://localhost:8765"

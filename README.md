@@ -6,22 +6,22 @@
 
 **A GitHub Copilot Extension that tests your frontend in a real browser, then hands Copilot a fix list.**
 
-AI coding agents can write UI code, but they can't see whether it works — they don't know if a button throws an error, a form fails to submit, or a page overflows on mobile. TestPilot closes that gap: point it at a local URL and it opens the page in headless Chrome, crawls the app, fills out forms, clicks buttons, checks the layout, and reports concrete, actionable failures back to Copilot Chat.
+AI coding agents can write UI code, but they can't see whether it works. They don't know if a button throws an error, a form fails to submit, or a page overflows on mobile. TestPilot closes that gap: point it at a local URL and it opens the page in headless Chrome, crawls the app, fills out forms, clicks buttons, checks the layout, and reports concrete, actionable failures back to Copilot Chat.
 
 ## Features
 
-- **Page discovery** — crawls up to 10 pages from a starting URL, following internal links
-- **Error detection** — captures console errors, uncaught JS exceptions, and failed network requests (4xx/5xx) as they happen
-- **Form testing** — finds every form on a page, fills fields with type-appropriate test data (email, password, phone, date, etc.), submits, and watches for errors or missing validation
-- **Click testing** — clicks every button/link on a page and checks for crashes or broken navigation
-- **Visual checks** — screenshots each page, flags horizontal overflow, broken images, missing `alt` text, and overlapping interactive elements; re-checks the layout at a 375px mobile viewport
-- **Structured reporting** — compiles all results into a pass/fail/warning summary with per-issue fix suggestions, formatted for Copilot Chat or as raw JSON
+- **Page discovery**: crawls up to 10 pages from a starting URL, following internal links
+- **Error detection**: captures console errors, uncaught JS exceptions, and failed network requests (4xx/5xx) as they happen
+- **Form testing**: finds every form on a page, fills fields with type-appropriate test data (email, password, phone, date, etc.), submits, and watches for errors or missing validation
+- **Click testing**: clicks every button/link on a page and checks for crashes or broken navigation
+- **Visual checks**: screenshots each page, flags horizontal overflow, broken images, missing `alt` text, and overlapping interactive elements, then re-checks the layout at a 375px mobile viewport
+- **Structured reporting**: compiles all results into a pass/fail/warning summary with per-issue fix suggestions, formatted for Copilot Chat or as raw JSON
 
 ## Tech stack
 
 - **TypeScript** (strict mode) on **Node.js**
-- **Express** — serves the Copilot Extension endpoint (SSE) and a plain REST API
-- **Puppeteer** — drives headless Chrome for navigation, DOM inspection, and screenshots
+- **Express**: serves the Copilot Extension endpoint (SSE) and a plain REST API
+- **Puppeteer**: drives headless Chrome for navigation, DOM inspection, and screenshots
 
 ## How it works
 
@@ -41,7 +41,7 @@ Crawl → fill forms → click buttons → check layout
 Structured report + fix instructions → back to Copilot
 ```
 
-There are no mocks and no static analysis — every check runs against the real, rendered page. The server exposes two things: a `/` endpoint that speaks the Copilot Extension SSE protocol (`text/event-stream`), and a plain `POST /api/test` endpoint for calling it directly without Copilot.
+There are no mocks and no static analysis: every check runs against the real, rendered page. The server exposes two things: a `/` endpoint that speaks the Copilot Extension SSE protocol (`text/event-stream`), and a plain `POST /api/test` endpoint for calling it directly without Copilot.
 
 ## Getting started
 
@@ -93,17 +93,17 @@ curl -X POST http://localhost:8765/api/test \
 
 ```
 src/
-├── index.ts              # Express server + Copilot SSE endpoint + request parsing
+├── index.ts  # Express server + Copilot SSE endpoint + request parsing
 ├── browser/
-│   └── engine.ts          # Puppeteer wrapper: navigation, DOM scraping, clicking, filling
+│   └── engine.ts         # Puppeteer wrapper: navigation, DOM scraping, clicking, filling
 ├── tester/
-│   ├── navigator.ts        # Page crawling, console/network error capture
-│   ├── formTester.ts       # Form filling, submission, validation checks
-│   ├── clickTester.ts      # Button/link interaction testing
-│   └── visualChecker.ts    # Overflow, broken images, alt text, mobile viewport
+│   ├── navigator.ts      # Page crawling, console/network error capture
+│   ├── formTester.ts     # Form filling, submission, validation checks
+│   ├── clickTester.ts    # Button/link interaction testing
+│   └── visualChecker.ts  # Overflow, broken images, alt text, mobile viewport
 ├── reporter/
-│   └── reporter.ts         # Compiles results into a report with fix suggestions
-└── types.ts                # Shared TypeScript interfaces
+│   └── reporter.ts       # Compiles results into a report with fix suggestions
+└── types.ts  # Shared TypeScript interfaces
 ```
 
 ## Status
